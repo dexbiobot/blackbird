@@ -14,10 +14,18 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-await client.user.setActivity("wawa", {
-    type: "WATCHING", //options: STREAMING LISTENING PLAYING WATCHING
-  })
-  
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
+
+	const { commandName } = interaction;
+
+	if (commandName === 'react') {
+		const message = await interaction.reply('You can react with Unicode emojis!', { fetchReply: true });
+		message.react('😄');
+	}
+});
+
+
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
