@@ -25,6 +25,15 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+const permissions = [
+	{
+		id: '818690892767821865',
+		type: 'ROLE',
+		permission: true,
+	},
+];
+
+await command.permissions.add({ permissions });
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
