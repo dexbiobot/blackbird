@@ -6,41 +6,11 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
-client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
-
-	if (interaction.commandName === 'ping') {
-		await interaction.reply({ content: 'Pong!', ephemeral: false });
-	}
-});
-
-client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
-
-	const { commandName } = interaction;
-
-	if (commandName === 'react') {
-		const message = await interaction.reply('You can react with Unicode emojis!', { fetchReply: true });
-		message.react('😄');
-	}
-});
-
-const permissions = [
-	{
-		id: '818690892767821865',
-		type: 'ROLE',
-		permission: true,
-	},
-];
-
-await command.permissions.add({ permissions });
-
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
 		client.once(event.name, (...args) => event.execute(...args));
-	}
-	else {
+	} else {
 		client.on(event.name, (...args) => event.execute(...args));
 	}
 }
