@@ -6,6 +6,14 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
 
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isCommand()) return;
+
+	if (interaction.commandName === 'ping') {
+		await interaction.reply('Pong!');
+	}
+});
+
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
