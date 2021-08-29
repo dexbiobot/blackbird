@@ -14,6 +14,12 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
+client.on('message', message => {
+	if (message.content === '+ping') {
+	  message.channel.send(`🏓Latency is ${Date.now() - message.createdTimestamp}ms. API Latency is ${Math.round(client.ws.ping)}ms`);
+	}
+});
+
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
