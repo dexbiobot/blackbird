@@ -14,7 +14,7 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.user.setActivity('activity', { type: 'WATCHING' });
+client.user.setPresence({ activities: [{ name: 'activity' }], status: 'idle' });
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
