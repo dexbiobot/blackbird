@@ -14,8 +14,10 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.user.setPresence({ activities: [{ name: 'activity' }], status: 'idle' });
-
+await client.user.setActivity("wawa", {
+    type: "WATCHING", //options: STREAMING LISTENING PLAYING WATCHING
+  })
+  
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
 	if (event.once) {
