@@ -1,7 +1,15 @@
 module.exports = {
 	name: 'interactionCreate',
-	execute(interaction) {
-		console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered an interaction.`);
+	async execute(interaction, client) {
+		if (!interaction.isCommand()) return;
+
+		if (!client.commands.has(interaction.commandName)) return;
+		try {
+			await client.commands.get(interaction.commandName).execute(interaction);
+		}
+		catch (error) {
+			console.error(error);
+			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
+		}
 	},
 };
-
